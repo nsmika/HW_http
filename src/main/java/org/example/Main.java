@@ -11,8 +11,6 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.util.Arrays;
 import java.util.List;
 
 public class Main {
@@ -31,16 +29,6 @@ public class Main {
         request.setHeader(HttpHeaders.ACCEPT, ContentType.APPLICATION_JSON.getMimeType());
 
         CloseableHttpResponse response = httpClient.execute(request);
-
-        System.out.println("====ЗАГОЛОВКИ====");
-        Arrays.stream(response.getAllHeaders()).forEach(System.out::println);
-
-        String body = new String(response.getEntity().getContent().readAllBytes(), StandardCharsets.UTF_8);
-        System.out.println("====ТЕЛО====");
-        System.out.println(body);
-
-        response = httpClient.execute(request);
-
 
         ObjectMapper objectMapper = new ObjectMapper();
         List<Post> posts = objectMapper.readValue(
